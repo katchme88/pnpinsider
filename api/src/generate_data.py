@@ -80,6 +80,52 @@ oct_17_2019_express = {'noc': re.sub('[,\\n ]', ' ', '''0621, 0631, 0711, 0821, 
 2171, 4212, 4214, 4214, 6221, 7312,
 7321''').split(), 'score': 67, 'ita': 986}
 
+oct_24_2019_oid = {'noc': re.sub('[,\\n ]', ' ', '''0013, 0014, 0111, 0112, 0113, 0114,
+0121, 0122, 0125, 0131, 0132, 0212,
+0213, 0421, 0423, 0601, 0621, 0631,
+0632, 0651, 0711, 0714, 0731, 0821,
+0912, 1114, 1121, 1211, 1212, 1213,
+1215, 1221, 1222, 1223, 1224, 1225,
+1226, 1241, 1242, 1243, 1252, 1253,
+1311, 1313, 2134, 2142, 2144, 2148,
+2171, 2172, 2174, 2221, 2222, 2233,
+2234, 2242, 2251, 2252, 2253, 2262,
+2263, 2264, 2272, 2281, 2282, 3143,
+3211, 3212, 3214, 3215, 3217, 3219,
+3223, 3234, 4011, 4021, 4033, 4151,
+4152, 4153, 4161, 4163, 4164, 4165,
+4166, 4167, 4169, 4211, 4212, 4214,
+4214, 4215, 4216, 6221, 6235, 6315,
+6316, 6321, 6331, 6332, 6342, 6344,
+7201, 7202, 7204, 7231, 7235, 7236,
+7237, 7241, 7242, 7243, 7244, 7251,
+7271, 7281, 7294, 7305, 7311, 7312,
+7313, 7321, 7322, 7381, 7384, 8211,
+8222, 9213, 9231, 9232''').split(), 'score': 69, 'ita': 550}
+
+oct_24_2019_express = {'noc': re.sub('[,\\n ]', ' ', '''0013, 0014, 0111, 0112, 0113, 0114,
+0121, 0122, 0125, 0131, 0132, 0212,
+0213, 0421, 0423, 0601, 0621, 0631,
+0632, 0651, 0711, 0714, 0731, 0821,
+0912, 1114, 1121, 1211, 1212, 1213,
+1215, 1221, 1222, 1223, 1224, 1225,
+1226, 1241, 1242, 1243, 1252, 1253,
+1311, 1313, 2134, 2142, 2144, 2148,
+2171, 2172, 2174, 2221, 2222, 2233,
+2234, 2242, 2251, 2252, 2253, 2262,
+2263, 2264, 2272, 2281, 2282, 3143,
+3211, 3212, 3214, 3215, 3217, 3219,
+3223, 3234, 4011, 4021, 4033, 4151,
+4152, 4153, 4161, 4163, 4164, 4165,
+4166, 4167, 4169, 4211, 4212, 4214,
+4214, 4215, 4216, 6221, 6235, 6315,
+6316, 6321, 6331, 6332, 6342, 6344,
+7201, 7202, 7204, 7231, 7235, 7236,
+7237, 7241, 7242, 7243, 7244, 7251,
+7271, 7281, 7294, 7305, 7311, 7312,
+7313, 7321, 7322, 7381, 7384, 8211,
+8222, 9213, 9231, 9232''').split(), 'score': 69, 'ita': 372}
+
 df = pd.read_csv(filename)
 df['noc'] = df['noc'].astype('str')
 df['noc'] = df['noc'].apply(lambda x: '{0:0>4}'.format(x))
@@ -87,7 +133,7 @@ df['statscan_link'] = df['noc'].apply(lambda x: f'https://www120.statcan.gc.ca/s
 
 nocs = df
 nocs.columns = ['noc_id', 'title', 'skill_level', '2019_est_employments', '2019_wage_est', 'job_outlook', 'job_openings', 'soft_skills', 'statscan_link']
-draws = pd.DataFrame({'draw_id':[1,2,3,4,5,6,7], 'date': ['2019-09-25','2019-09-25','2019-10-02','2019-10-02','2019-10-08','2019-10-08','2019-10-17'], 'draw_type':['express','oid','express','oid','express','oid','express'], 'invitations': [404,365,396,214,231,328,986], 'score': [70,79,68,68,69,69,67]})
+draws = pd.DataFrame({'draw_id':[1,2,3,4,5,6,7,8,9], 'date': ['2019-09-25','2019-09-25','2019-10-02','2019-10-02','2019-10-08','2019-10-08','2019-10-17', '2019-10-24','2019-10-24'], 'draw_type':['express','oid','express','oid','express','oid','express', 'oid', 'express'], 'invitations': [404,365,396,214,231,328,986,550,372], 'score': [70,79,68,68,69,69,67,69,69]})
 
 nocs_draws = pd.DataFrame({'draw_id': [1]*len(sept_25_2019_express['noc']), 'noc_id': sept_25_2019_express['noc']})
 nocs_draws = nocs_draws.append(pd.DataFrame({'draw_id': [2]*len(sept_25_2019_oid['noc']), 'noc_id': sept_25_2019_oid['noc']}))
@@ -96,6 +142,8 @@ nocs_draws = nocs_draws.append(pd.DataFrame({'draw_id': [4]*len(oct_02_2019_oid[
 nocs_draws = nocs_draws.append(pd.DataFrame({'draw_id': [5]*len(oct_08_2019_express['noc']), 'noc_id': oct_08_2019_express['noc']}))
 nocs_draws = nocs_draws.append(pd.DataFrame({'draw_id': [6]*len(oct_08_2019_oid['noc']), 'noc_id': oct_08_2019_oid['noc']}))
 nocs_draws = nocs_draws.append(pd.DataFrame({'draw_id': [7]*len(oct_17_2019_express['noc']), 'noc_id': oct_17_2019_express['noc']}))
+nocs_draws = nocs_draws.append(pd.DataFrame({'draw_id': [8]*len(oct_24_2019_oid['noc']), 'noc_id': oct_24_2019_oid['noc']}))
+nocs_draws = nocs_draws.append(pd.DataFrame({'draw_id': [9]*len(oct_24_2019_express['noc']), 'noc_id': oct_24_2019_express['noc']}))
 
 
 # engine = create_engine('postgresql+psycopg2://postgres:talha@localhost/pnpinsider', echo=False)
