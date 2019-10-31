@@ -94,8 +94,7 @@ oct_24_2019_oid = {'noc': re.sub('[,\\n ]', ' ', '''0013, 0014, 0111, 0112, 0113
 3211, 3212, 3214, 3215, 3217, 3219,
 3223, 3234, 4011, 4021, 4033, 4151,
 4152, 4153, 4161, 4163, 4164, 4165,
-4166, 4167, 4169, 4211, 4212, 4214,
-4214, 4215, 4216, 6221, 6235, 6315,
+4166, 4167, 4169, 4211, 4212, 4214, 4215, 4216, 6221, 6235, 6315,
 6316, 6321, 6331, 6332, 6342, 6344,
 7201, 7202, 7204, 7231, 7235, 7236,
 7237, 7241, 7242, 7243, 7244, 7251,
@@ -117,8 +116,7 @@ oct_24_2019_express = {'noc': re.sub('[,\\n ]', ' ', '''0013, 0014, 0111, 0112, 
 3211, 3212, 3214, 3215, 3217, 3219,
 3223, 3234, 4011, 4021, 4033, 4151,
 4152, 4153, 4161, 4163, 4164, 4165,
-4166, 4167, 4169, 4211, 4212, 4214,
-4214, 4215, 4216, 6221, 6235, 6315,
+4166, 4167, 4169, 4211, 4212, 4214, 4215, 4216, 6221, 6235, 6315,
 6316, 6321, 6331, 6332, 6342, 6344,
 7201, 7202, 7204, 7231, 7235, 7236,
 7237, 7241, 7242, 7243, 7244, 7251,
@@ -129,10 +127,9 @@ oct_24_2019_express = {'noc': re.sub('[,\\n ]', ' ', '''0013, 0014, 0111, 0112, 
 df = pd.read_csv(filename)
 df['noc'] = df['noc'].astype('str')
 df['noc'] = df['noc'].apply(lambda x: '{0:0>4}'.format(x))
-df['statscan_link'] = df['noc'].apply(lambda x: f'https://www120.statcan.gc.ca/stcsr/en/cm1/cls?fq=ds%3A102noc2016&start=0&showSum=show&q={x}')
 
 nocs = df
-nocs.columns = ['noc_id', 'title', 'skill_level', '2019_est_employments', '2019_wage_est', 'job_outlook', 'job_openings', 'soft_skills', 'statscan_link']
+nocs.columns = ['noc_id', 'title', 'skill_level', '2019_est_employments', '2019_wage_est', 'job_outlook', 'job_openings', 'soft_skills']
 draws = pd.DataFrame({'draw_id':[1,2,3,4,5,6,7,8,9], 'date': ['2019-09-25','2019-09-25','2019-10-02','2019-10-02','2019-10-08','2019-10-08','2019-10-17', '2019-10-24','2019-10-24'], 'draw_type':['express','oid','express','oid','express','oid','express', 'oid', 'express'], 'invitations': [404,365,396,214,231,328,986,550,372], 'score': [70,79,68,68,69,69,67,69,69]})
 
 nocs_draws = pd.DataFrame({'draw_id': [1]*len(sept_25_2019_express['noc']), 'noc_id': sept_25_2019_express['noc']})
@@ -153,6 +150,7 @@ nocs_draws = nocs_draws.append(pd.DataFrame({'draw_id': [9]*len(oct_24_2019_expr
 # nocs_draws.to_sql('nocs_draws', con=engine, if_exists='replace', index=False)
 
 def get_draws():
+    draws['noc_list'] = nocs_draws.merge(draws, on="draw_id", how='left').groupby('draw_id')['noc_id'].apply(list).reset_index(name='noc_list')['noc_list']
     return draws.to_dict(orient="records")
 
 def get_nocs(noc_id = 'all'):
