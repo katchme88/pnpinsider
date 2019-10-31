@@ -1,4 +1,4 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
 from flask_cors import CORS
 import pandas as pd
 import tempfile
@@ -33,10 +33,20 @@ def listOfProvinces():
 
 @app.route("/api/draws")
 def listOfDraws():
-    x = generate_data.get_draws()
-    return jsonify(x)
+    date = request.args.get('date')
+    draw_type = request.args.get('draw_type')
+    summary = request.args.get('summary')
+
+    if summary:
+        resp = generate_data.get_draws_summary()
+        return jsonify(resp)
+    elif draw_type and date:
+        resp = generate_data.get_draws_details(date= date, draw_type= draw_type)
+        return jsonify(resp)
+    else:
+        return jsonify({'response': 'parameters required'})
 
 @app.route("/api/nocs/<noc_id>")
 def listOfNocs(noc_id):
-    x = generate_data.get_nocs(noc_id)
-    return jsonify(x)
+    resp = generate_data.get_nocs(noc_id)
+    return jsonify(resp)

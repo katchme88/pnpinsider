@@ -30,7 +30,7 @@ class Draws extends React.Component {
         if (this.props.data.length > 0) {
         let headers = Object.keys(this.props.data[0])
         return (
-            <Table props striped bordered hover size="sm">
+            <Table striped bordered hover size="sm">
                 <thead>
                     <tr>
                         {headers.map(this.renderHead)}

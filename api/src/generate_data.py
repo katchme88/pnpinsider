@@ -149,9 +149,14 @@ nocs_draws = nocs_draws.append(pd.DataFrame({'draw_id': [9]*len(oct_24_2019_expr
 # draws.to_sql('draws', con=engine, if_exists='replace', index=False)
 # nocs_draws.to_sql('nocs_draws', con=engine, if_exists='replace', index=False)
 
-def get_draws():
+def get_draws_summary():
     draws['noc_list'] = nocs_draws.merge(draws, on="draw_id", how='left').groupby('draw_id')['noc_id'].apply(list).reset_index(name='noc_list')['noc_list']
     return draws.to_dict(orient="records")
+
+def get_draws_details(date='2019-09-25', draw_type='oid'):
+    z = nocs_draws.merge(draws)[['noc_id','date', 'draw_type']].merge(nocs)
+    z = z[(z.date == date) & (z.draw_type == draw_type)]
+    return z.to_dict(orient="records")
 
 def get_nocs(noc_id = 'all'):
     if noc_id == 'all':

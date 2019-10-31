@@ -39,8 +39,8 @@ class Nocs extends React.Component {
                 </tbody>
             </Table>
         } else {
-            return <div class="d-flex justify-content-center">
-                     <Spinner style={{'margin-top':'15%','width':'150px', 'height':'150px'}} animation="border" />
+            return <div className="d-flex justify-content-center">
+                     <Spinner style={{marginTop:'15%', width:'150px', height:'150px'}} animation="border" />
                    </div>
             
         }

@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import Draws from './components/Draws'
 import Home from './components/Home'
 import Nocs from './components/Nocs'
+import Details from './components/Details'
 import { Nav, Navbar, Form, FormControl, Button } from 'react-bootstrap';
 
 class App extends React.Component {
@@ -15,13 +16,13 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    fetch("http://localhost:5000/api/draws")
+    fetch("http://localhost:5000/api/draws?summary=1")
     .then(response => response.json())
-    .then(data => this.setState({draws: data, nocs: this.state.nocs}))
+    .then(data => this.setState({...this.state, draws: data}))
 
     fetch("http://localhost:5000/api/nocs/all")
     .then(response => response.json())
-    .then(data => this.setState({draws: this.state.draws, nocs: data}))
+    .then(data => this.setState({...this.state, nocs: data}))
   }
 
   render(){
@@ -33,7 +34,8 @@ class App extends React.Component {
             <Nav className="mr-auto">
               <Nav.Link as={Link} to="/">Home</Nav.Link>
               <Nav.Link as={Link} to="/draws">Draws</Nav.Link>
-              <Nav.Link as={Link} to="/nocs">Noc List</Nav.Link>
+              <Nav.Link as={Link} to="/nocs">NocList</Nav.Link>
+              <Nav.Link as={Link} to="/details">Details</Nav.Link>
             </Nav>
             <Form inline>
               <FormControl type="text" placeholder="Search" className="mr-sm-2" />
@@ -43,6 +45,7 @@ class App extends React.Component {
           <Switch>
             <Route path="/draws"><Draws data={this.state.draws}/></Route>
             <Route path="/nocs">< Nocs data={this.state.nocs}/></Route>
+            <Route path="/details"><Details data={this.state.draws}/></Route>
             <Route path="/"><Home /></Route>
           </Switch>
         </div>
