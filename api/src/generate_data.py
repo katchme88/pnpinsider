@@ -5,7 +5,6 @@ import re
 import os
 here = os.path.dirname(os.path.abspath(__file__))
 filename = os.path.join(here, 'noc_list_raw.csv')
-print (filename)
 sept_25_2019_express = {'noc': re.sub('[,\\n ]', ' ', '''0013, 0016, 0111, 0112, 0113, 0114,
 0122, 0125, 0131, 0212, 0213, 0421,
 0423, 0601, 0621, 0631, 0632, 0651,
@@ -154,7 +153,7 @@ def get_draws_summary():
     return draws.to_dict(orient="records")
 
 def get_draws_details(date='2019-09-25', draw_type='oid'):
-    z = nocs_draws.merge(draws)[['noc_id','date', 'draw_type']].merge(nocs)
+    z = nocs_draws.merge(draws)[['noc_id','date', 'draw_type', 'draw_id']].merge(nocs)
     z = z[(z.date == date) & (z.draw_type == draw_type)]
     return z.to_dict(orient="records")
 
