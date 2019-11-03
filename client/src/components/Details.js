@@ -10,8 +10,11 @@ class Details extends React.Component {
         }
     }
 
-    handleClick = (date, draw_type) => {
-        fetch(`http://localhost:5000/api/draws?date=${date}&draw_type=${draw_type}`)
+    handleClick = (draw_id) => {
+        if (draw_id in this.state) {
+            return
+        }
+        fetch(`http://localhost:5000/api/draws?draw_id=${draw_id}`)
         .then((response) => response.json())
         .then((data) => this.setState({...this.state, [data[0]['draw_id']]: data}))
     }
@@ -23,7 +26,7 @@ class Details extends React.Component {
             return (
             <Card key={index}>
             <Card.Header>
-                <Accordion.Toggle onClick={() => this.handleClick(item.date, item.draw_type, index)} as={Button} variant="link" eventKey={index}>
+                <Accordion.Toggle onClick={() => this.handleClick(item.draw_id)} as={Button} variant="link" eventKey={index}>
                 {item.date} - {item.draw_type.toUpperCase()}
                 </Accordion.Toggle>
             </Card.Header>

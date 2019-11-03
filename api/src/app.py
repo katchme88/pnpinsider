@@ -33,15 +33,14 @@ def listOfProvinces():
 
 @app.route("/api/draws")
 def listOfDraws():
-    date = request.args.get('date')
-    draw_type = request.args.get('draw_type')
     summary = request.args.get('summary')
+    draw_id = request.args.get('draw_id')
 
     if summary:
         resp = generate_data.get_draws_summary()
         return jsonify(resp)
-    elif draw_type and date:
-        resp = generate_data.get_draws_details(date= date, draw_type= draw_type)
+    elif draw_id:
+        resp = generate_data.get_draws_details(draw_id)
         return jsonify(resp)
     else:
         return jsonify({'response': 'parameters required'})
