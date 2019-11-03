@@ -5,14 +5,14 @@ import tempfile
 import generate_data
 
 app = Flask(__name__)
-cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
+cors = CORS(app, resources={r"/*": {"origins": "*"}})
 app.config['JSON_SORT_KEYS'] = False
 
-@app.route("/api")
+@app.route("/")
 def hello():
     return "Hello, World!"
 
-@app.route("/api/provinces")
+@app.route("/provinces")
 def listOfProvinces():
     return jsonify(
         {
@@ -31,7 +31,7 @@ def listOfProvinces():
         }
     )
 
-@app.route("/api/draws")
+@app.route("/draws")
 def listOfDraws():
     summary = request.args.get('summary')
     draw_id = request.args.get('draw_id')
@@ -45,12 +45,15 @@ def listOfDraws():
     else:
         return jsonify({'response': 'parameters required'})
 
-@app.route("/api/nocs/<noc_id>")
+@app.route("/nocs/<noc_id>")
 def listOfNocs(noc_id):
     resp = generate_data.get_nocs(noc_id)
     return jsonify(resp)
 
-@app.route("/api/draws/overview")
+@app.route("/draws/overview")
 def listOverview():
     resp = generate_data.getOverview()
     return jsonify(resp)
+
+if __name__ == "__main__":
+    app.run(host='0.0.0.0', port=5000)

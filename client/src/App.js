@@ -18,15 +18,15 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    fetch("http://localhost:5000/api/draws?summary=1")
+    fetch("/api/draws?summary=1")
     .then(response => response.json())
     .then(data => this.setState({...this.state, draws: data}))
 
-    fetch("http://localhost:5000/api/nocs/all")
+    fetch("/api/nocs/all")
     .then(response => response.json())
     .then(data => this.setState({...this.state, nocs: data}))
 
-    fetch("http://localhost:5000/api/draws/overview")
+    fetch("/api/draws/overview")
     .then(response => response.json())
     .then(data => this.setState({...this.state, overview: data}))
   }

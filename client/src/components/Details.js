@@ -14,7 +14,7 @@ class Details extends React.Component {
         if (draw_id in this.state) {
             return
         }
-        fetch(`http://localhost:5000/api/draws?draw_id=${draw_id}`)
+        fetch(`/api/draws?draw_id=${draw_id}`)
         .then((response) => response.json())
         .then((data) => this.setState({...this.state, [data[0]['draw_id']]: data}))
     }
