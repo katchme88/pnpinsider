@@ -4,6 +4,7 @@ import Draws from './components/Draws'
 import Home from './components/Home'
 import Nocs from './components/Nocs'
 import Details from './components/Details'
+import Overview from './components/Overview'
 import { Nav, Navbar, Form, FormControl, Button } from 'react-bootstrap';
 
 class App extends React.Component {
@@ -11,7 +12,8 @@ class App extends React.Component {
     super(props); 
     this.state = {
         draws: [],
-        nocs: []
+        nocs: [],
+        overview: []
     }
   }
 
@@ -23,6 +25,10 @@ class App extends React.Component {
     fetch("http://localhost:5000/api/nocs/all")
     .then(response => response.json())
     .then(data => this.setState({...this.state, nocs: data}))
+
+    fetch("http://localhost:5000/api/draws/overview")
+    .then(response => response.json())
+    .then(data => this.setState({...this.state, overview: data}))
   }
 
   render(){
@@ -36,6 +42,7 @@ class App extends React.Component {
               <Nav.Link as={Link} to="/draws">Draws</Nav.Link>
               <Nav.Link as={Link} to="/nocs">NocList</Nav.Link>
               <Nav.Link as={Link} to="/details">Details</Nav.Link>
+              <Nav.Link as={Link} to="/overview">Overview</Nav.Link>
             </Nav>
             <Form inline>
               <FormControl type="text" placeholder="Search" className="mr-sm-2" />
@@ -46,6 +53,7 @@ class App extends React.Component {
             <Route path="/draws"><Draws data={this.state.draws}/></Route>
             <Route path="/nocs">< Nocs data={this.state.nocs}/></Route>
             <Route path="/details"><Details data={this.state.draws}/></Route>
+            <Route path="/overview"><Overview data={this.state.overview}/></Route>
             <Route path="/"><Home /></Route>
           </Switch>
         </div>

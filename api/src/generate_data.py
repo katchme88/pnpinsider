@@ -166,7 +166,6 @@ nocs_draws= pd.DataFrame(nocs_draws_obj)
 # nocs_draws.to_sql('nocs_draws', con=engine, if_exists='replace', index=False)
 
 def get_draws_summary():
-    #draws['noc_list'] = nocs_draws.merge(draws, on="draw_id", how='left').groupby('draw_id')['noc_id'].apply(list).reset_index(name='noc_list')['noc_list']
     return draws.to_dict(orient="records")
 
 def get_draws_details(draw_id=1):
@@ -179,3 +178,17 @@ def get_nocs(noc_id = 'all'):
         return nocs.to_dict(orient="records")
     else:
         return nocs[nocs.noc_id == noc_id].to_dict(orient="records")
+
+def getOverview():
+    z = nocs.merge(nocs_draws).merge(draws)[['noc_id','date', 'draw_type']]
+    z['draw_date_type'] = z['date'].astype('str')+'_'+z['draw_type']
+    z = z.drop_duplicates().sort_values(by='noc_id')
+    x=pd.get_dummies(z['draw_date_type'])
+    j=pd.concat([z,x], axis=1)
+    j = j.drop(['draw_date_type'], axis=1)
+    k = j.groupby('noc_id')
+    final = nocs.merge(k.sum(), on='noc_id')
+    final = final.drop(['soft_skills', '2019_wage_est'], axis=1)
+    final['total'] = final.filter(regex='2019-.*').sum(axis=1)
+    final.update(final.filter(regex='2019-.*').replace(to_replace=[1,0],value=['Yes', 'No']))
+    return final.to_dict(orient="records")

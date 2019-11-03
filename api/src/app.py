@@ -49,3 +49,8 @@ def listOfDraws():
 def listOfNocs(noc_id):
     resp = generate_data.get_nocs(noc_id)
     return jsonify(resp)
+
+@app.route("/api/draws/overview")
+def listOverview():
+    resp = generate_data.getOverview()
+    return jsonify(resp)
