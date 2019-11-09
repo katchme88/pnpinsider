@@ -6,6 +6,7 @@ import Nocs from './components/Nocs'
 import Details from './components/Details'
 import Overview from './components/Overview'
 import { Nav, Navbar, Form, FormControl, Button } from 'react-bootstrap';
+import './App.css'
 
 class App extends React.Component {
   constructor(props) {
@@ -35,19 +36,22 @@ class App extends React.Component {
     return (
       <Router>
         <div>
-          <Navbar sticky="top" bg="dark" variant="dark">
+          <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark" sticky="top">
             <Navbar.Brand as={Link} to="/home">PNP Trend</Navbar.Brand>
+            <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+            <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="mr-auto">
-              <Nav.Link as={Link} to="/">Home</Nav.Link>
-              <Nav.Link as={Link} to="/draws">Draws</Nav.Link>
-              <Nav.Link as={Link} to="/nocs">NocList</Nav.Link>
-              <Nav.Link as={Link} to="/details">Details</Nav.Link>
-              <Nav.Link as={Link} to="/overview">Overview</Nav.Link>
+              <Nav.Item><Nav.Link eventKey="1" as={Link} to="/">Home</Nav.Link></Nav.Item>
+              <Nav.Item><Nav.Link eventKey="2" as={Link} to="/draws">Draws</Nav.Link></Nav.Item>
+              <Nav.Item><Nav.Link eventKey="3" as={Link} to="/nocs">NocList</Nav.Link></Nav.Item>
+              <Nav.Item><Nav.Link eventKey="4" as={Link} to="/details">Details</Nav.Link></Nav.Item>
+              <Nav.Item><Nav.Link eventKey="5" as={Link} to="/overview">Overview</Nav.Link></Nav.Item>
             </Nav>
-            <Form inline>
+            {/* <Form inline>
               <FormControl type="text" placeholder="Search" className="mr-sm-2" />
               <Button variant="outline-info">Search</Button>
-            </Form>
+            </Form> */}
+            </Navbar.Collapse>
           </Navbar> 
           <Switch>
             <Route path="/draws"><Draws data={this.state.draws}/></Route>
