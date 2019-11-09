@@ -5,10 +5,10 @@ class TableView extends React.Component {
     render() {
         if (typeof this.props.data != 'undefined'){
             return (
-                <Table striped bordered hover size="sm">
+                <Table responsive striped bordered hover size="sm">
                     <thead className='thead-dark'>
                         <tr>
-                            { Object.keys(this.props.data[0]).map((colName, index) => { return <th style={{fontSize: '12px', position: 'sticky', top: 55}} key={index}>{colName.replace('_', ' ').toUpperCase()}</th>})}
+                            { Object.keys(this.props.data[0]).map((colName, index) => { return <th style={{fontSize: '12px', position: 'sticky'}} key={index}>{colName.replace('_', ' ').toUpperCase()}</th>})}
                         </tr>
                     </thead>
                     <tbody>
