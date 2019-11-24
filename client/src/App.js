@@ -5,7 +5,7 @@ import Home from './components/Home'
 import Nocs from './components/Nocs'
 import Details from './components/Details'
 import Overview from './components/Overview'
-import { Nav, Navbar, Form, FormControl, Button } from 'react-bootstrap';
+import { Nav, Navbar } from 'react-bootstrap';
 import './App.css'
 
 class App extends React.Component {
@@ -37,7 +37,7 @@ class App extends React.Component {
       <Router>
         <div>
           <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark" sticky="top">
-            <Navbar.Brand as={Link} to="/home">PNP Trend</Navbar.Brand>
+            <Navbar.Brand as={Link} to="/home">PNP Insights</Navbar.Brand>
             <Navbar.Toggle aria-controls="responsive-navbar-nav" />
             <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="mr-auto">
@@ -58,7 +58,9 @@ class App extends React.Component {
             <Route path="/nocs">< Nocs data={this.state.nocs}/></Route>
             <Route path="/details"><Details data={this.state.draws}/></Route>
             <Route path="/overview"><Overview data={this.state.overview}/></Route>
-            <Route path="/"><Home /></Route>
+
+              <Route path="/"><Home data={this.state.draws}/></Route>
+
           </Switch>
         </div>
       </Router>
