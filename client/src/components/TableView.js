@@ -15,19 +15,19 @@ class TableView extends React.Component {
                         {this.props.data.map((row, index)=> {
                             let rowClass = ''
                             switch(row.total) {
-                                case 7:
+                                case 11:
                                     rowClass = 'table-danger'
                                     break;
-                                case 6:
+                                case 10:
                                     rowClass = 'table-warning'
                                     break;
-                                case 5:
+                                case 9:
                                     rowClass = 'table-info'
                                     break;
-                                case 4:
+                                case 8:
                                     rowClass = 'table-info'
                                     break;
-                                case 2:
+                                case 6:
                                     rowClass = 'table-success'
                                     break;
                                 default:
