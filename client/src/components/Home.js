@@ -1,6 +1,7 @@
 import React from 'react';
-import wordcloud from '../wordcloud.png'
-import {Card, Container, CardDeck} from 'react-bootstrap'
+import canada from '../canada.png'
+import {Card, Container, CardDeck, Jumbotron, Image} from 'react-bootstrap'
+import bg from '../bg.jpg'
 
 class Home extends React.Component {
     getStats = (data) => {
@@ -30,47 +31,52 @@ class Home extends React.Component {
             minScore = stats[1]
             maxScore = stats[2] 
         }
-
+        const bg1 = 'https://venngage-wordpress.s3.amazonaws.com/uploads/2018/09/Orange-Pattern-Simple-Background-Image.jpg'
         return (
-            <Container>
-                <img src={wordcloud} className="img-fluid" alt="word cloud" />
-                <CardDeck>
+            <div>
+                <div style={{backgroundImage: `url(${bg})`}}>
+                    <Container className='text-center'>
+                        <Image src={canada} fluid/>
+                    </Container>
+                </div>    
+                <Container className='text-center'>
+                <CardDeck style={{paddingTop: '5vh'}}>
                 <Card border="info" className='text-center'>
-                    <Card.Header><b>Total Invites</b></Card.Header>
-                    <Card.Body>
-                    <Card.Text>
-                        {invites}
-                    </Card.Text>
-                    </Card.Body>
+                    <Card.Header><h3><b>Total Invites</b></h3></Card.Header>
+                        <Card.Body>
+                            <Card.Text>
+                                <h1>{invites}</h1>
+                            </Card.Text>
+                        </Card.Body>
                     <Card.Footer>
                     <small className="text-muted">Last Updated: Today</small>
                     </Card.Footer>
                 </Card>
                 <Card border="info" className='text-center'>
-                    
-                    <Card.Header><b>Minimum Score</b></Card.Header>
-                    <Card.Body>
-                    <Card.Text>
-                        {minScore}
-                    </Card.Text>
-                    </Card.Body>
+                    <Card.Header><h3><b>Minimum Score</b></h3></Card.Header>
+                        <Card.Body>
+                            <Card.Text>
+                                <h1>{minScore}</h1>
+                            </Card.Text>
+                        </Card.Body>
                     <Card.Footer>
                     <small className="text-muted">Last Updated: Today</small>
                     </Card.Footer>
                 </Card>
                 <Card border="info" className='text-center'>
-                    <Card.Header ><b>Max Score</b></Card.Header>
-                    <Card.Body>
-                    <Card.Text>
-                        {maxScore}
-                    </Card.Text>
-                    </Card.Body>
+                    <Card.Header><h3><b>Maximum Score</b></h3></Card.Header>
+                        <Card.Body>
+                            <Card.Text>
+                                <h1>{maxScore}</h1>
+                            </Card.Text>
+                        </Card.Body>
                     <Card.Footer>
                     <small className="text-muted">Last Updated: Today</small>
                     </Card.Footer>
                 </Card>
                 </CardDeck>
-            </Container>
+                </Container>
+            </div>
         );
     }
 }

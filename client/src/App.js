@@ -7,6 +7,7 @@ import Details from './components/Details'
 import Overview from './components/Overview'
 import { Nav, Navbar } from 'react-bootstrap';
 import './App.css'
+import logo from './canada.png'
 
 class App extends React.Component {
   constructor(props) {
@@ -35,9 +36,15 @@ class App extends React.Component {
   render(){
     return (
       <Router>
-        <div>
+        <div style={{backgroundColor: `#f2f2f2`, minHeight:'100vh'}}>
           <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark" sticky="top">
-            <Navbar.Brand as={Link} to="/home">PNP Insights</Navbar.Brand>
+            <Navbar.Brand as={Link} to="/home"><img
+              alt=""
+              src={logo}
+              width="40"
+              height="30"
+              className="d-inline-block align-top"
+            />{' '}PNP Insights</Navbar.Brand>
             <Navbar.Toggle aria-controls="responsive-navbar-nav" />
             <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="mr-auto">

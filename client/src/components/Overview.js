@@ -1,5 +1,5 @@
 import React from 'react';
-import { Spinner } from 'react-bootstrap';
+import { Spinner, Container } from 'react-bootstrap';
 import TableView from './TableView'
 
 class Overview extends React.Component {
@@ -10,9 +10,9 @@ class Overview extends React.Component {
             )
         }  else {
             return (
-                <div className="d-flex justify-content-center">
-                    <Spinner style={{marginTop:'15%', width:'150px', height:'150px'}} animation="border" />
-                </div>
+                <Container fluid className="d-flex justify-content-center" style={{marginTop: "30vh"}}>
+                    <Spinner style={{width:'150px', height:'150px'}} animation="border" />
+                </Container>
             )
         }
     }
