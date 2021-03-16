@@ -45,10 +45,10 @@ class TableView extends React.Component {
                                                 vals[1] = <b>{vals[1]}</b>
                                                 cellClass = 'bg-warning' 
                                             }
-                                            if (vals[1] === 'Yes') {
+                                            if (vals[1] === 'YES') {
                                                 cellClass = 'bg-success' 
                                             }
-                                            if (vals[1] === 'No') {
+                                            if (vals[1] === 'NO') {
                                                 cellClass = 'bg-danger' 
                                             }
                                             return (
