@@ -62,5 +62,9 @@ def getOverview():
     final['total'] = final.filter(regex='2019-|2020-|2021.*').sum(axis=1)    
     final.update(final.filter(regex='2019-|2020-|2021.*').replace(to_replace=[1,0],value=['YES', 'NO']))
     columns = final.columns.to_list()
-    col=columns[0:6]+[columns[-1]]+columns[6:-1]
+    col_1 = columns[0:6]
+    col_2 = [columns[-1]]
+    col_3 = columns[6:-1]
+    col_3.reverse()
+    col=col_1+col_2+col_3
     return final[col].to_dict(orient="records")
