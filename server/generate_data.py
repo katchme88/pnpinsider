@@ -67,4 +67,5 @@ def getOverview():
     col_3 = columns[6:-1]
     col_3.reverse()
     col=col_1+col_2+col_3
+    final = final[final.total > 0]
     return final[col].to_dict(orient="records")
