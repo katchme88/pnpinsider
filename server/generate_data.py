@@ -59,8 +59,8 @@ def getOverview():
     k = j.groupby('noc_id')
     final = nocs.merge(k.sum(), on='noc_id')
     final = final.drop(['soft_skills', '2019_wage_est'], axis=1)
-    final['total'] = final.filter(regex='2019-|2020-|2021.*').sum(axis=1)    
-    final.update(final.filter(regex='2019-|2020-|2021.*').replace(to_replace=[1,0],value=['Yes', 'No']))
+    final['total'] = final.filter(regex='2019-|2020-|2021-|2022-').sum(axis=1)    
+    final.update(final.filter(regex='2019-|2020-|2021-|2022-').replace(to_replace=[1,0],value=['YES', 'NO']))
     columns = final.columns.to_list()
     col_1 = columns[0:6]
     col_2 = [columns[-1]]
